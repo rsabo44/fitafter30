@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitAfter30 — Get Fit in 30 Minutes a Day</title>
+<meta name="description" content="The fitness platform built for busy adults 30+. No 2-hour gym sessions. No complicated diets. Just smart, proven fitness built around your real life — and your real schedule.">
+<meta property="og:title" content="FitAfter30 — Get Fit in 30 Minutes a Day">
+<meta property="og:description" content="Join 1,000+ busy adults already transforming their lives. Start your free 7-day trial today.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://placehold.co/1200x630/0a0a0a/ffffff?text=FitAfter30">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%230a0a0a'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' font-family='serif' fill='white'>F</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --g100: #f5f5f4;
+  --g200: #e8e8e6;
+  --g300: #d0d0ce;
+  --g400: #9a9a98;
+  --g600: #5a5a58;
+  --g800: #2a2a28;
+  --accent: #e8e0d4;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+/* ── SKIP LINK ── */
+.skip-link { position: absolute; left: -999px; top: 8px; z-index: 9999; background: var(--white); color: var(--black); padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 2px; }
+.skip-link:focus { left: 8px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(10,10,10,0.97); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6vw; height: 66px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--white); letter-spacing: 2px; text-decoration: none; flex-shrink: 0; }
+.wordmark span { color: var(--g400); }
+.nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+.nav-links a { color: var(--g400); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { background: var(--white) !important; color: var(--black) !important; padding: 9px 20px; border-radius: 2px; font-weight: 700 !important; letter-spacing: 1px !important; }
+.nav-cta:hover { background: var(--g300) !important; color: var(--black) !important; }
+
+/* hamburger */
+.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all 0.25s ease; border-radius: 2px; }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* mobile drawer */
+.mobile-drawer {
+  display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.99); z-index: 190; flex-direction: column;
+  padding: 40px 6vw; gap: 0;
+  transform: translateX(100%); transition: transform 0.3s ease;
+}
+.mobile-drawer.open { transform: translateX(0); }
+.mobile-drawer a {
+  color: var(--white); text-decoration: none; font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px; letter-spacing: 2px; line-height: 1.1;
+  border-bottom: 1px solid rgba(255,255,255,0.08); padding: 18px 0;
+  transition: color 0.2s;
+}
+.mobile-drawer a:hover { color: var(--g400); }
+.mobile-drawer .drawer-cta {
+  margin-top: 28px; background: var(--white); color: var(--black) !important;
+  text-align: center; padding: 16px; border-radius: 2px; font-size: 14px !important;
+  font-family: 'DM Sans', sans-serif !important; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; border-bottom: none;
+}
+
+/* ── URGENCY BAR ── */
+.urgency-bar {
+  background: var(--g800); border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-align: center; padding: 10px 6vw;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.6px;
+  color: var(--g300);
+  position: fixed; top: 66px; left: 0; right: 0; z-index: 199;
+  display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;
+}
+.urgency-bar strong { color: var(--white); font-weight: 700; }
+.countdown-wrap { display: inline-flex; align-items: center; gap: 6px; }
+.countdown-seg { background: rgba(255,255,255,0.12); border-radius: 2px; padding: 2px 7px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--white); letter-spacing: 1px; min-width: 32px; text-align: center; }
+.countdown-sep { color: var(--g400); font-size: 14px; font-weight: 700; }
+.ub-cta { color: var(--white); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; white-space: nowrap; }
+.ub-cta:hover { color: var(--g300); }
+
+/* offset */
+.page-offset { padding-top: 108px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - 108px);
+  background: var(--black);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 6vw 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '30';
+  font-family: 'Bebas Neue', sans-serif; font-size: 44vw;
+  color: rgba(255,255,255,0.022);
+  position: absolute; right: -3vw; top: 50%; transform: translateY(-50%);
+  line-height: 1; user-select: none; pointer-events: none;
+}
+.hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--g600); margin-bottom: 24px; animation: fadeUp 0.5s 0.1s ease both; opacity: 0; }
+.hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(58px, 9vw, 128px); color: var(--white); line-height: 0.9; letter-spacing: 2px; margin-bottom: 28px; max-width: 860px; animation: fadeUp 0.55s 0.22s ease both; opacity: 0; }
+.hero h1 em { font-style: normal; color: #787876; }
+.hero-sub { font-size: 18px; font-weight: 300; color: var(--g400); max-width: 460px; line-height: 1.75; margin-bottom: 20px; animation: fadeUp 0.55s 0.34s ease both; opacity: 0; }
+.hero-trust-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; animation: fadeUp 0.55s 0.44s ease both; opacity: 0; }
+.hero-guarantee { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; padding: 6px 12px; font-size: 12px; color: var(--g300); letter-spacing: 0.3px; }
+.hero-guarantee strong { color: var(--white); font-weight: 600; }
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.55s 0.54s ease both; opacity: 0; }
+.btn-white { display: inline-block; background: var(--white); color: var(--black); padding: 15px 34px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; text-decoration: none; border-radius: 2px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-white:hover { background: var(--g300); transform: translateY(-1px); }
+.btn-ghost { display: inline-block; background: transparent; color: var(--white); padding: 15px 34px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; text-decoration: none; border-radius: 2px; border: 1px solid rgba(255,255,255,0.18); cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
+.hero-scroll { position: absolute; bottom: 36px; left: 6vw; display: flex; align-items: center; gap: 12px; color: var(--g800); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; animation: fadeUp 0.55s 0.72s ease both; opacity: 0; }
+.hero-scroll::before { content: ''; display: block; width: 34px; height: 1px; background: var(--g800); }
+.hero-scroll-arrow { display: inline-flex; flex-direction: column; gap: 2px; margin-left: 4px; }
+.hero-scroll-arrow span { display: block; width: 8px; height: 1.5px; background: var(--g800); border-radius: 2px; animation: scrollBounce 1.6s 1.5s ease-in-out infinite; }
+.hero-scroll-arrow span:nth-child(2) { animation-delay: 1.7s; }
+.hero-scroll-arrow span:nth-child(3) { animation-delay: 1.9s; }
+
+
+/* ── LEAD MAGNET ── */
+.lead-magnet {
+  background: var(--white);
+  border-top: 1px solid var(--g200);
+  border-bottom: 4px solid var(--black);
+  padding: 60px 6vw;
+}
+.lm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+  max-width: 1100px;
+}
+.lm-badge { display: inline-block; background: var(--black); color: var(--white); font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 18px; }
+.lm-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(34px, 4vw, 56px); line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+.lm-title em { font-style: normal; color: var(--g400); }
+.lm-desc { font-size: 15px; font-weight: 300; color: var(--g600); line-height: 1.75; margin-bottom: 8px; }
+.lm-note { font-size: 12px; color: var(--g400); margin-bottom: 32px; }
+.lm-form { display: flex; gap: 0; max-width: 420px; }
+.lm-input { flex: 1; padding: 14px 16px; background: var(--g100); border: 1px solid var(--g200); border-right: none; border-radius: 2px 0 0 2px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--black); outline: none; transition: border-color 0.2s; }
+.lm-input:focus { border-color: var(--black); }
+.lm-input::placeholder { color: var(--g400); }
+.lm-input.success { border-color: #4a8a4a; background: #f0faf0; }
+.lm-submit { padding: 14px 22px; background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; border: none; border-radius: 0 2px 2px 0; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.lm-submit:hover { background: var(--g800); }
+.lm-what { background: var(--g100); border-radius: 2px; padding: 36px 40px; }
+.lm-what-title { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--g400); margin-bottom: 20px; }
+.lm-checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.lm-checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--g800); line-height: 1.5; }
+.lm-checklist li::before { content: ''; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; background: var(--black) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpolyline points='3.5,9 7,12.5 14.5,5' stroke='%23ffffff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; border-radius: 50%; }
+.lm-trial-note { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--g200); font-size: 13px; color: var(--g600); line-height: 1.6; }
+.lm-trial-note strong { color: var(--black); font-weight: 600; }
+
+/* ── STATS BAR ── */
+.stats-bar { background: var(--black); padding: 48px 6vw; }
+.stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.stat-block { background: var(--black); padding: 36px 32px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--white); line-height: 1; letter-spacing: 1px; }
+.stat-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--g600); margin-top: 6px; }
+
+/* ── SHARED ── */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--g400); margin-bottom: 12px; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5.5vw, 72px); letter-spacing: 1px; line-height: 0.95; margin-bottom: 18px; }
+
+/* ── ABOUT ── */
+.about { background: var(--white); padding: 100px 6vw; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual { position: relative; padding-bottom: 20px; padding-right: 20px; }
+.about-visual-box { background: var(--black); aspect-ratio: 4/5; border-radius: 2px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.manifesto { padding: 48px; display: flex; flex-direction: column; gap: 0; width: 100%; font-family: 'Courier New', 'Courier', monospace; }
+.manifesto-prompt { font-size: 11px; color: var(--g600); letter-spacing: 1px; margin-bottom: 18px; }
+.manifesto-line { display: flex; align-items: baseline; gap: 0; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.manifesto-line:last-child { border-bottom: none; }
+.m-key { font-size: 11px; color: var(--g600); letter-spacing: 1px; width: 110px; flex-shrink: 0; }
+.m-val { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--white); line-height: 1; letter-spacing: 2px; }
+.m-unit { font-size: 12px; color: var(--g400); margin-left: 8px; letter-spacing: 1px; font-family: 'DM Sans', sans-serif; }
+.manifesto-cursor { display: inline-block; width: 2px; height: 18px; background: var(--g400); margin-left: 4px; vertical-align: middle; animation: blink 1.1s step-end infinite; }
+.about-stat { position: absolute; bottom: 0; right: 0; background: var(--g100); color: var(--black); padding: 24px 28px; border-radius: 2px; border: 1px solid var(--g200); }
+.about-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; }
+.about-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--g600); margin-top: 4px; }
+.about-body { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
+.about-body p { font-size: 15px; font-weight: 300; color: var(--g600); line-height: 1.85; }
+.about-body p strong { color: var(--black); font-weight: 600; }
+.founder-card { margin-top: 28px; display: flex; align-items: center; gap: 16px; background: var(--g100); border-radius: 2px; padding: 20px 24px; border: 1px solid var(--g200); }
+.founder-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--black); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--white); flex-shrink: 0; }
+.founder-info .founder-name { font-size: 14px; font-weight: 600; color: var(--black); }
+.founder-info .founder-cred { font-size: 12px; color: var(--g600); margin-top: 2px; line-height: 1.5; }
+
+/* ── PRICING ── */
+.plans { background: var(--g100); padding: 100px 6vw; }
+.plans-header { margin-bottom: 52px; }
+.plans-header .section-title { max-width: 600px; }
+.plans-sub { font-size: 15px; font-weight: 300; color: var(--g600); max-width: 480px; line-height: 1.75; margin-top: 4px; }
+.pricing-note { display: inline-flex; align-items: center; gap: 8px; background: rgba(10,10,10,0.06); border-radius: 2px; padding: 8px 14px; font-size: 12px; color: var(--g600); margin-bottom: 36px; }
+.pricing-note strong { color: var(--black); font-weight: 600; }
+.plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--g300); border-radius: 2px; overflow: hidden; }
+.plan-card { background: var(--white); padding: 40px 32px; display: flex; flex-direction: column; }
+.plan-card.featured { background: var(--black); }
+.plan-card.vip { background: var(--g800); }
+.plan-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 20px; width: fit-content; }
+.plan-badge.b-light { background: var(--g100); color: var(--g600); }
+.plan-badge.b-dark { background: rgba(255,255,255,0.1); color: var(--g300); }
+.plan-badge.b-vip { background: rgba(255,255,255,0.15); color: #d4b896; }
+.plan-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; }
+.plan-card.featured .plan-name, .plan-card.vip .plan-name { color: var(--white); }
+.plan-desc { font-size: 12px; font-weight: 300; color: var(--g400); margin-bottom: 28px; line-height: 1.65; flex-shrink: 0; }
+.plan-price-main { font-family: 'Bebas Neue', sans-serif; font-size: 54px; line-height: 1; letter-spacing: 1px; color: var(--black); }
+.plan-card.featured .plan-price-main, .plan-card.vip .plan-price-main { color: var(--white); }
+.plan-price-period { font-size: 12px; color: var(--g400); margin-left: 1px; }
+.plan-price-note { font-size: 11px; color: var(--g400); margin-bottom: 28px; margin-top: 3px; min-height: 16px; }
+.plan-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.plan-features li { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: var(--g600); line-height: 1.5; }
+.plan-card.featured .plan-features li, .plan-card.vip .plan-features li { color: var(--g300); }
+.plan-features li::before { content: ''; width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; background: var(--g100) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpolyline points='2.5,7 5.5,10 11.5,4' stroke='%235a5a58' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; border-radius: 50%; }
+.plan-card.featured .plan-features li::before { background-color: rgba(255,255,255,0.08); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpolyline points='2.5,7 5.5,10 11.5,4' stroke='%23ffffff' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.plan-card.vip .plan-features li::before { background-color: rgba(212,184,150,0.15); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpolyline points='2.5,7 5.5,10 11.5,4' stroke='%23d4b896' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.plan-features .fh { color: var(--g400); font-size: 10px; display: block; margin-top: 1px; font-style: italic; }
+.plan-card.featured .plan-features .fh { color: var(--g600); }
+.plan-card.vip .plan-features .fh { color: #8a7a6a; }
+.plan-btn { display: block; width: 100%; padding: 13px; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; border-radius: 2px; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; }
+.plan-btn.pb-light { background: var(--g100); color: var(--black); }
+.plan-btn.pb-light:hover { background: var(--g200); }
+.plan-btn.pb-dark { background: var(--white); color: var(--black); }
+.plan-btn.pb-dark:hover { background: var(--g300); }
+.plan-btn.pb-vip { background: #d4b896; color: var(--black); }
+.plan-btn.pb-vip:hover { background: #c4a886; }
+.plan-urgency { margin-top: 10px; text-align: center; font-size: 10px; color: var(--g400); letter-spacing: 0.5px; }
+.plan-card.featured .plan-urgency { color: var(--g600); }
+.plan-card.vip .plan-urgency { color: #8a7a6a; }
+.guarantee { margin-top: 32px; display: flex; align-items: center; gap: 14px; background: var(--white); border-radius: 2px; padding: 20px 24px; }
+.guarantee-icon { width: 40px; height: 40px; background: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+.guarantee-text { font-size: 13px; color: var(--g600); line-height: 1.6; }
+.guarantee-text strong { color: var(--black); font-weight: 600; }
+
+/* ── ONE-OFF ── */
+.oneoff { background: var(--white); padding: 100px 6vw; }
+.oneoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--g200); border-radius: 2px; overflow: hidden; margin-top: 52px; }
+.oneoff-card { background: #FAEEDA; padding: 52px 44px; border: none; }
+.oneoff-icon { width: 44px; height: 44px; background: var(--black); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+.oneoff-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.oneoff-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.oneoff-badge { display: inline-block; background: rgba(10,10,10,0.08); color: #854F0B; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+.oneoff-outcome { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #854F0B; margin-bottom: 12px; }
+.oneoff-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; margin-bottom: 14px; color: var(--black); }
+.oneoff-desc { font-size: 14px; font-weight: 300; color: var(--g600); line-height: 1.8; margin-bottom: 28px; }
+.oneoff-includes { list-style: none; margin-bottom: 36px; display: flex; flex-direction: column; gap: 9px; }
+.oneoff-includes li { font-size: 13px; color: var(--g600); display: flex; align-items: center; gap: 10px; }
+.oneoff-includes li::before { content: '→'; color: #EF9F27; font-size: 13px; flex-shrink: 0; }
+.oneoff-price-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid rgba(10,10,10,0.1); padding-top: 28px; }
+.oneoff-price { font-family: 'Bebas Neue', sans-serif; font-size: 48px; line-height: 1; letter-spacing: 1px; color: var(--black); }
+.oneoff-was { font-size: 13px; color: var(--g400); text-decoration: line-through; margin-bottom: 2px; }
+.oneoff-note { font-size: 11px; color: var(--g600); margin-top: 4px; }
+.btn-dark { display: inline-block; background: var(--black); color: var(--white); padding: 14px 28px; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; text-decoration: none; border-radius: 2px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-dark:hover { background: var(--g800); transform: translateY(-1px); }
+.oneoff-upsell { margin-top: 20px; font-size: 12px; color: var(--g600); line-height: 1.6; background: rgba(10,10,10,0.06); border-radius: 2px; padding: 12px 16px; }
+.oneoff-upsell strong { color: var(--black); font-weight: 600; }
+
+/* ── NEWSLETTER (FINAL CTA) ── */
+.newsletter { background: var(--black); padding: 120px 6vw; text-align: center; position: relative; overflow: hidden; }
+.newsletter::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 60%); pointer-events: none; }
+.newsletter .section-label { color: var(--g600); }
+.newsletter .section-title { color: var(--white); max-width: 640px; margin: 0 auto 14px; }
+.nl-sub { font-size: 16px; font-weight: 300; color: var(--g400); max-width: 440px; margin: 0 auto 16px; line-height: 1.7; }
+.nl-trial-callout { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; padding: 10px 20px; font-size: 13px; color: var(--g300); margin-bottom: 40px; }
+.nl-trial-callout strong { color: var(--white); font-weight: 600; }
+.nl-form { display: flex; max-width: 460px; margin: 0 auto; }
+.nl-input { flex: 1; padding: 15px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-right: none; border-radius: 2px 0 0 2px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.2s; }
+.nl-input::placeholder { color: var(--g600); }
+.nl-input:focus { border-color: rgba(255,255,255,0.3); }
+.nl-input.success { border-color: rgba(74,138,74,0.6); background: rgba(74,138,74,0.1); }
+.nl-submit { padding: 15px 24px; background: var(--white); color: var(--black); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; border: none; border-radius: 0 2px 2px 0; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.nl-submit:hover { background: var(--g300); }
+.nl-note { margin-top: 16px; font-size: 11px; color: var(--g600); letter-spacing: 0.3px; }
+
+/* ── FOOTER ── */
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); padding: 44px 6vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer-copy { font-size: 12px; color: var(--g600); margin-top: 5px; }
+.footer-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--g600); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+/* ── STICKY CTA BAR ── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 180;
+  background: var(--white); border-top: 1px solid var(--g200);
+  padding: 12px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+}
+.sticky-cta.visible { transform: translateY(0); }
+.sticky-cta-text { font-size: 14px; color: var(--black); font-weight: 500; }
+.sticky-cta-text span { color: var(--g600); font-weight: 400; font-size: 12px; margin-left: 6px; }
+.sticky-cta-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.sticky-cta-dismiss { background: none; border: none; color: var(--g400); font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; transition: color 0.2s; }
+.sticky-cta-dismiss:hover { color: var(--black); }
+
+/* ── MODAL ── */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 2px; padding: 52px 48px; max-width: 520px; width: 100%; position: relative; }
+.modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 22px; color: var(--g400); cursor: pointer; line-height: 1; padding: 4px; }
+.modal-close:hover { color: var(--black); }
+.modal-badge { display: inline-block; background: var(--black); color: var(--white); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 18px; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 1px; line-height: 0.95; margin-bottom: 14px; }
+.modal-desc { font-size: 14px; font-weight: 300; color: var(--g600); line-height: 1.7; margin-bottom: 20px; }
+.modal-trust-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; padding: 14px 0; border-top: 1px solid var(--g200); border-bottom: 1px solid var(--g200); }
+.modal-trust-item { font-size: 11px; color: var(--g600); display: flex; align-items: center; gap: 5px; }
+.modal-trust-item::before { content: '✓'; color: #4a8a4a; font-weight: 700; font-size: 12px; }
+.modal-form { display: flex; flex-direction: column; gap: 12px; }
+.modal-input { padding: 13px 16px; background: var(--g100); border: 1px solid var(--g200); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--black); outline: none; transition: border-color 0.2s; }
+.modal-input:focus { border-color: var(--black); }
+.modal-input::placeholder { color: var(--g400); }
+.modal-submit { padding: 14px; background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s; }
+.modal-submit:hover { background: var(--g800); }
+.modal-note { font-size: 11px; color: var(--g400); text-align: center; margin-top: 4px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes scrollBounce { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(3px); opacity: 1; } }
+@keyframes countUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(74,138,74,0.4); } 70% { box-shadow: 0 0 0 8px rgba(74,138,74,0); } 100% { box-shadow: 0 0 0 0 rgba(74,138,74,0); } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) { .plans-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  .about-grid, .oneoff-grid, .lm-inner { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-drawer { display: flex; }
+  .plans-grid { grid-template-columns: 1fr; }
+  .sticky-cta-text span { display: none; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 60px 6vw; }
+  .hero h1 { font-size: clamp(52px, 16vw, 80px); }
+  .hero-sub { font-size: 16px; }
+  .hero-buttons { flex-direction: column; }
+  .hero-buttons a { text-align: center; }
+  .lm-what { padding: 28px 24px; }
+  .oneoff-card { padding: 36px 28px; }
+  .modal { padding: 36px 28px; }
+  .sticky-cta { padding: 12px 5vw; }
+  .urgency-bar { font-size: 11px; padding: 10px 4vw; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#free-trial" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Main navigation">
+  <a href="#" class="wordmark" aria-label="FitAfter30 home">FIT<span>AFTER30</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#plans">Pricing</a></li>
+    <li><a href="#oneoff">À La Carte</a></li>
+    <li><a href="#newsletter" class="nav-cta">Get Free Trial</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" onclick="toggleDrawer(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <a href="#about" onclick="closeDrawer()">About</a>
+  <a href="#plans" onclick="closeDrawer()">Pricing</a>
+  <a href="#oneoff" onclick="closeDrawer()">À La Carte</a>
+  <a href="#newsletter" class="drawer-cta" onclick="closeDrawer()">Start Free 7-Day Trial</a>
+</nav>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar" role="alert" aria-live="polite">
+  <span><strong>🔥 Founding Member Pricing Ends In:</strong></span>
+  <div class="countdown-wrap" aria-label="Countdown timer">
+    <span class="countdown-seg" id="cd-h">00</span>
+    <span class="countdown-sep">:</span>
+    <span class="countdown-seg" id="cd-m">00</span>
+    <span class="countdown-sep">:</span>
+    <span class="countdown-seg" id="cd-s">00</span>
+  </div>
+  <span>Annual locks in at $349 before it goes to $399. <span class="ub-cta" onclick="openModal('annual')" role="button" tabindex="0">Claim your rate →</span></span>
+</div>
+
+<div class="page-offset">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-heading">
+  <p class="hero-tag">The fitness platform built for busy adults 30+</p>
+  <h1 id="hero-heading">Get Fit in<br>30 Minutes<br><em>a Day.</em></h1>
+  <p class="hero-sub">No 2-hour gym sessions. No complicated diets. Just smart, proven fitness built around your real life — and your real schedule.</p>
+  <div class="hero-trust-row">
+    <div class="hero-guarantee">🛡 <strong>30-Day Money-Back Guarantee</strong> — Zero risk</div>
+    <div class="hero-guarantee">⚡ <strong>No credit card</strong> for free trial</div>
+  </div>
+  <div class="hero-buttons">
+    <a href="#newsletter" class="btn-white">Start My Free 7-Day Trial</a>
+    <a href="#plans" class="btn-ghost">Compare Plans</a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Scroll to explore
+    <span class="hero-scroll-arrow"><span></span><span></span><span></span></span>
+  </div>
+</section>
+
+
+<!-- LEAD MAGNET -->
+<section class="lead-magnet" id="free-trial" aria-labelledby="lm-heading">
+  <div class="lm-inner">
+    <div>
+      <div class="lm-badge">Free — Instant Access</div>
+      <h2 class="lm-title" id="lm-heading">Your Free<br><em>7-Day Kickstart</em><br>Starts Here.</h2>
+      <p class="lm-desc">Subscribe to our newsletter and unlock a full 7-day trial of the FitAfter30 program — plus our <strong>Busy Person's Guide to Losing 10 lbs Without the Gym</strong>, delivered free to your inbox.</p>
+      <p class="lm-note">Join 1,000+ members already transforming their lives. No credit card. No strings.</p>
+      <div class="lm-form" role="form" aria-label="Free trial signup">
+        <input type="email" class="lm-input" placeholder="Enter your email address" id="lmEmail" aria-label="Email address" />
+        <button class="lm-submit" onclick="submitLM()" aria-label="Send free guide">Send My Free Guide</button>
+      </div>
+    </div>
+    <div class="lm-what">
+      <p class="lm-what-title">What you get — instantly free</p>
+      <ul class="lm-checklist">
+        <li>7-day FitAfter30 trial program — full access</li>
+        <li>The Busy Person's Guide to Losing 10 lbs Without the Gym (PDF)</li>
+        <li>3 quick-start 30-min workout plans</li>
+        <li>Weekly tips, strategies & member success stories</li>
+        <li>No gym required — everything works at home</li>
+      </ul>
+      <div class="lm-trial-note">
+        <strong>Want to keep going after 7 days?</strong> Upgrade to a paid plan at any time — your trial progress carries over and you'll never lose your spot in the community.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" aria-label="Key statistics">
+  <div class="stats-inner">
+    <div class="stat-block">
+      <div class="stat-num" data-target="1000" data-suffix="+" data-prefix="">1K+</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" data-target="4.9" data-suffix="" data-float="true">4.9</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" data-target="18" data-suffix=" lbs">18 lbs</div>
+      <div class="stat-label">Avg. Loss in 90 Days</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" data-target="30" data-suffix=" min">30 min</div>
+      <div class="stat-label">Per Workout</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-visual-box" role="img" aria-label="FitAfter30 program metrics">
+        <div class="manifesto">
+          <p class="manifesto-prompt">// fitafter30.program</p>
+          <div class="manifesto-line">
+            <span class="m-key">workouts</span>
+            <span class="m-val">30</span><span class="m-unit">min/day</span>
+          </div>
+          <div class="manifesto-line">
+            <span class="m-key">frequency</span>
+            <span class="m-val">3×</span><span class="m-unit">per week</span>
+          </div>
+          <div class="manifesto-line">
+            <span class="m-key">community</span>
+            <span class="m-val">1K+</span><span class="m-unit">members</span>
+          </div>
+          <div class="manifesto-line">
+            <span class="m-key">excuses</span>
+            <span class="m-val">0</span><span class="m-unit">needed<span class="manifesto-cursor"></span></span>
+          </div>
+        </div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">92%</div>
+        <div class="about-stat-label">Member retention rate</div>
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title" id="about-heading">We've Been<br>Where You Are.</h2>
+      <div class="about-body">
+        <p>Life after 30 doesn't slow down — <strong>it accelerates.</strong> Careers, families, and responsibilities pile up while the hours in the day stay exactly the same. We built FitAfter30 because we lived it ourselves — juggling demanding schedules while watching our energy, strength, and confidence quietly erode. We tried every program out there and found the same problem: <strong>they were all built for people with unlimited time and zero obligations.</strong></p>
+        <p>So we built what we wished had existed. FitAfter30 is a <strong>community, a toolkit, and a plan</strong> — all in one. Every program is designed around 30 minutes because that's what real life allows. Whether you're just getting started or getting back on track after years away, <strong>you belong here.</strong></p>
+      </div>
+      <div class="founder-card">
+        <div class="founder-avatar" aria-hidden="true">JM</div>
+        <div class="founder-info">
+          <div class="founder-name">Jamie M., Founder</div>
+          <div class="founder-cred">NSCA-Certified Strength Coach · Lost 40 lbs at 36 while working a demanding job and raising two kids. Built FitAfter30 because nothing else existed for people like us.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="plans" id="plans" aria-labelledby="plans-heading">
+  <div class="plans-header">
+    <p class="section-label">Membership Pricing</p>
+    <h2 class="section-title" id="plans-heading">The Right Plan<br>for Your Goals.</h2>
+    <p class="plans-sub">Every plan is designed to fit into your life — not the other way around. Start free, upgrade when you're ready.</p>
+  </div>
+
+  <div class="pricing-note">
+    <strong>🔒 Founding Member Rate:</strong> Annual plan currently $349/yr — price increases to $399 soon. Lock it in today.
+  </div>
+
+  <div class="plans-grid">
+    <!-- STARTER -->
+    <div class="plan-card">
+      <div class="plan-badge b-light">Free</div>
+      <div class="plan-name">Starter</div>
+      <p class="plan-desc">Dip your toes in. Get a real feel for what we do — free, no card required.</p>
+      <div><span class="plan-price-main">$0</span></div>
+      <p class="plan-price-note">No credit card required</p>
+      <ul class="plan-features">
+        <li>7-day trial program (via newsletter)</li>
+        <li>Free beginner workout series</li>
+        <li>Weekly newsletter with tips & strategies</li>
+        <li>Community forum read access</li>
+        <li>Sample nutrition guide</li>
+      </ul>
+      <a href="#newsletter" class="plan-btn pb-light">Start Free Today</a>
+      <p class="plan-urgency">No commitment. Upgrade anytime.</p>
+    </div>
+
+    <!-- MONTHLY -->
+    <div class="plan-card">
+      <div class="plan-badge b-light">Flexible</div>
+      <div class="plan-name">Monthly</div>
+      <p class="plan-desc">Stay consistent week to week. A fresh program drops every Monday — built for you.</p>
+      <div><span class="plan-price-main">$29</span><span class="plan-price-period">/ mo</span></div>
+      <p class="plan-price-note">Cancel anytime, no questions asked</p>
+      <ul class="plan-features">
+        <li>This week's full workout program</li>
+        <li>New programming every Monday</li>
+        <li>Community forum full access</li>
+        <li>Progress tracking dashboard</li>
+        <li>Cancel anytime</li>
+      </ul>
+      <a href="#newsletter" class="plan-btn pb-light">Get Started</a>
+      <p class="plan-urgency">Includes 7-day free trial via newsletter</p>
+    </div>
+
+    <!-- ANNUAL FEATURED -->
+    <div class="plan-card featured">
+      <div class="plan-badge b-dark">⭐ Most Popular</div>
+      <div class="plan-name">Annual</div>
+      <p class="plan-desc">Full access. Expert guidance. Our best deal — and the plan most members wish they'd started with.</p>
+      <div><span class="plan-price-main">$349</span><span class="plan-price-period" style="color:var(--g400);">/ yr</span></div>
+      <p class="plan-price-note">Just $29.08/mo — save $60 vs monthly</p>
+      <ul class="plan-features">
+        <li>Everything in Monthly</li>
+        <li>Full on-demand program library<span class="fh">Hundreds of workouts, available anytime</span></li>
+        <li>5 personalized Q&A responses / month<span class="fh">Detailed expert tips tailored to you</span></li>
+        <li>Weight Loss Tips & Tricks Guide<span class="fh">Exclusive guide — a $250 value, free</span></li>
+        <li>Priority email support</li>
+        <li>Early access to all new programs</li>
+      </ul>
+      <a href="#newsletter" class="plan-btn pb-dark" onclick="openModal('annual')">Join Annual — Lock In Rate</a>
+      <p class="plan-urgency">⚠ Price increases to $399 soon</p>
+    </div>
+
+    <!-- VIP -->
+    <div class="plan-card vip">
+      <div class="plan-badge b-vip">👑 VIP Coaching</div>
+      <div class="plan-name">VIP</div>
+      <p class="plan-desc">For those who are serious about results and want a fully guided, hands-on experience.</p>
+      <div><span class="plan-price-main">$149</span><span class="plan-price-period" style="color:var(--g400);">/ mo</span></div>
+      <p class="plan-price-note">Billed monthly — cancel anytime</p>
+      <ul class="plan-features">
+        <li>Everything in Annual</li>
+        <li>Unlimited personalized Q&A<span class="fh">Ask anything, anytime — expert responses</span></li>
+        <li>Monthly 1:1 async check-in<span class="fh">Video or voice note — fully personalized</span></li>
+        <li>Custom workout plan built for you<span class="fh">Tailored to your body, goals & schedule</span></li>
+        <li>Custom nutrition plan included<span class="fh">$49 value — yours every month</span></li>
+        <li>Private VIP community channel</li>
+      </ul>
+      <a href="#newsletter" class="plan-btn pb-vip" onclick="openModal('vip')">Apply for VIP</a>
+      <p class="plan-urgency" style="color:#8a7a6a;">Limited spots available</p>
+    </div>
+  </div>
+
+  <div class="guarantee">
+    <div class="guarantee-icon" aria-hidden="true">🛡</div>
+    <p class="guarantee-text"><strong>30-Day Money-Back Guarantee.</strong> If you're not completely satisfied within your first 30 days, we'll refund every penny. No hoops. No questions. We're that confident in what we've built.</p>
+  </div>
+</section>
+
+<!-- ONE-OFF PLANS -->
+<section class="oneoff" id="oneoff" aria-labelledby="oneoff-heading">
+  <p class="section-label">À La Carte</p>
+  <h2 class="section-title" id="oneoff-heading">One-Off Plans.</h2>
+  <p style="font-size:15px;font-weight:300;color:var(--g600);max-width:500px;line-height:1.75;">Not ready for a membership? Get a fully personalized plan built around your specific body and goals — one time, no commitment.</p>
+  <div class="oneoff-grid">
+    <div class="oneoff-card">
+      <div class="oneoff-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 6h3M18 6h3M3 18h3M18 18h3"/></svg>
+      </div>
+      <div class="oneoff-header-row">
+        <span class="oneoff-badge">No commitment</span>
+      </div>
+      <p class="oneoff-outcome">Your personalized 6-week program</p>
+      <div class="oneoff-title">Custom Workout Plan</div>
+      <p class="oneoff-desc">A tailored 6-week training program built specifically around your schedule, available equipment, current fitness level, and goals. No gym required — every plan includes home and gym variations.</p>
+      <ul class="oneoff-includes">
+        <li>Personalized to your current fitness level</li>
+        <li>6-week structured daily program</li>
+        <li>Home and gym variations included</li>
+        <li>Exercise demonstration library</li>
+        <li>Built-in progressive overload</li>
+        <li>Lifetime access — yours to keep</li>
+      </ul>
+      <div class="oneoff-price-row">
+        <div>
+          <p class="oneoff-was">Was $49</p>
+          <div class="oneoff-price">$79</div>
+          <p class="oneoff-note">One-time · Lifetime access</p>
+        </div>
+        <a href="#newsletter" class="btn-dark">Get My Plan</a>
+      </div>
+      <p class="oneoff-upsell">💡 <strong>Heads up:</strong> Most people who grab a one-off plan upgrade to Annual within 30 days. Join Annual today and get this plan included — plus save $60/yr.</p>
+    </div>
+    <div class="oneoff-card">
+      <div class="oneoff-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h4V8"/></svg>
+      </div>
+      <div class="oneoff-header-row">
+        <span class="oneoff-badge">No commitment</span>
+      </div>
+      <p class="oneoff-outcome">Your sustainable nutrition roadmap</p>
+      <div class="oneoff-title">Custom Nutrition Plan</div>
+      <p class="oneoff-desc">A practical, sustainable nutrition roadmap designed specifically for your body and lifestyle. No calorie obsession, no impossible meal prep, no restriction — just a plan that actually works with your real life.</p>
+      <ul class="oneoff-includes">
+        <li>Custom calorie & macro targets for your body</li>
+        <li>Flexible food choices — no strict dieting</li>
+        <li>7-day sample meal plan</li>
+        <li>Grocery list & simple meal ideas</li>
+        <li>Eating out & travel strategies</li>
+        <li>Lifetime access — yours to keep</li>
+      </ul>
+      <div class="oneoff-price-row">
+        <div>
+          <p class="oneoff-was">Was $49</p>
+          <div class="oneoff-price">$79</div>
+          <p class="oneoff-note">One-time · Lifetime access</p>
+        </div>
+        <a href="#newsletter" class="btn-dark">Get My Plan</a>
+      </div>
+      <p class="oneoff-upsell">💡 <strong>Better value:</strong> Annual members get a free nutrition plan included ($79 value). Bundle and save — <a href="#plans" style="color:var(--black);font-weight:600;">see Annual plan →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL NEWSLETTER CTA -->
+<section class="newsletter" id="newsletter" aria-labelledby="nl-heading">
+  <p class="section-label">Your next chapter starts here</p>
+  <h2 class="section-title" id="nl-heading">Ready to Look and Feel<br>the Best of Your Life?</h2>
+  <p class="nl-sub">Join the FitAfter30 newsletter and unlock your free 7-day trial — plus the guide that's helped 1,000+ busy adults get fit without giving up their lives.</p>
+  <div class="nl-trial-callout">
+    🎁 <strong>Free with signup:</strong> 7-Day Trial + Busy Person's Fat Loss Guide (PDF)
+  </div>
+  <div class="nl-form" role="form" aria-label="Newsletter signup">
+    <input type="email" class="nl-input" placeholder="Enter your email address" id="nlEmail" aria-label="Email address" />
+    <button class="nl-submit" onclick="submitNL()">Unlock Free Trial</button>
+  </div>
+  <p class="nl-note">No spam. No credit card. Unsubscribe anytime. 🔒 Your info is safe with us.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="#" class="wordmark">FIT<span>AFTER30</span></a>
+    <p class="footer-copy">© 2025 FitAfter30. All rights reserved.</p>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#plans">Pricing</a></li>
+    <li><a href="#oneoff">À La Carte</a></li>
+    <li><a href="#newsletter">Free Trial</a></li>
+    <li><a href="#">Privacy Policy</a></li>
+  </ul>
+</footer>
+
+</div><!-- end page-offset -->
+
+<!-- STICKY CTA BAR -->
+<div class="sticky-cta" id="stickyCta" role="complementary" aria-label="Quick signup">
+  <div class="sticky-cta-text">
+    Start your free 7-day trial today.
+    <span>No credit card. Cancel anytime.</span>
+  </div>
+  <div class="sticky-cta-right">
+    <a href="#newsletter" class="btn-white" style="padding:10px 22px;font-size:11px;" onclick="dismissSticky()">Start Free Trial</a>
+    <button class="sticky-cta-dismiss" onclick="dismissSticky()" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">✕</button>
+    <div class="modal-badge" id="modal-badge">Annual Plan</div>
+    <h3 class="modal-title" id="modal-title-text">Lock In Your<br>Founding Rate.</h3>
+    <p class="modal-desc" id="modal-desc">Join the Annual plan today at $349/yr before pricing increases to $399. Your 7-day free trial starts the moment you subscribe to our newsletter below.</p>
+    <div class="modal-trust-row" aria-label="Trust signals">
+      <span class="modal-trust-item">No credit card required</span>
+      <span class="modal-trust-item">Cancel anytime</span>
+      <span class="modal-trust-item">30-day money-back guarantee</span>
+    </div>
+    <div class="modal-form">
+      <input type="text" class="modal-input" placeholder="Your first name" id="modal-name" autocomplete="given-name" />
+      <input type="email" class="modal-input" placeholder="Your email address" id="modal-email" autocomplete="email" />
+      <button class="modal-submit" onclick="submitModal()">Send Me My Free Trial & Lock In Rate</button>
+      <p class="modal-note">Joining 1,000+ members · 4.9★ rated program · 30-day guarantee</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── MOBILE NAV ── */
+function toggleDrawer(btn) {
+  const drawer = document.getElementById('mobileDrawer');
+  const isOpen = drawer.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeDrawer() {
+  const drawer = document.getElementById('mobileDrawer');
+  const btn = document.querySelector('.hamburger');
+  drawer.classList.remove('open');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/* ── COUNTDOWN TIMER ── */
+(function() {
+  const KEY = 'fa30_countdown_expiry';
+  const DURATION_MS = 72 * 60 * 60 * 1000;
+  let expiry = parseInt(localStorage.getItem(KEY) || '0', 10);
+  if (!expiry || expiry < Date.now()) {
+    expiry = Date.now() + DURATION_MS;
+    localStorage.setItem(KEY, expiry);
+  }
+  function tick() {
+    const diff = Math.max(0, expiry - Date.now());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ── STAT COUNT-UP ── */
+function animateStats() {
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const isFloat = el.dataset.float === 'true';
+    const dur = 1200;
+    const start = Date.now();
+    function step() {
+      const p = Math.min(1, (Date.now() - start) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const val = target * ease;
+      if (target >= 1000) {
+        el.textContent = Math.round(val) >= 1000 ? '1K+' : Math.round(val) + '+';
+      } else if (isFloat) {
+        el.textContent = val.toFixed(1) + suffix;
+      } else {
+        el.textContent = Math.round(val) + suffix;
+      }
+      if (p < 1) requestAnimationFrame(step);
+    }
+    step();
+  });
+}
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateStats(); statsObserver.disconnect(); }
+  });
+}, { threshold: 0.3 });
+const statsEl = document.querySelector('.stats-bar');
+if (statsEl) statsObserver.observe(statsEl);
+
+/* ── STICKY CTA BAR ── */
+let stickyClosed = false;
+function dismissSticky() {
+  stickyClosed = true;
+  document.getElementById('stickyCta').classList.remove('visible');
+}
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  if (stickyClosed) return;
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  const bar = document.getElementById('stickyCta');
+  if (pct > 0.35) {
+    bar.classList.add('visible');
+  }
+}, { passive: true });
+
+/* ── NAV ACTIVE ── */
+const sections = document.querySelectorAll('section[id]');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? '#ffffff' : '';
+      });
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+/* ── MODAL ── */
+function openModal(type) {
+  const badge = document.getElementById('modal-badge');
+  const title = document.getElementById('modal-title-text');
+  const desc = document.getElementById('modal-desc');
+  if (type === 'vip') {
+    badge.textContent = 'VIP Coaching';
+    title.innerHTML = 'Apply for<br>VIP Coaching.';
+    desc.textContent = 'VIP spots are limited. Enter your details and we\'ll reach out within 24 hours to discuss your goals and get you started.';
+  } else {
+    badge.textContent = 'Annual Plan';
+    title.innerHTML = 'Lock In Your<br>Founding Rate.';
+    desc.textContent = 'Join the Annual plan today at $349/yr before pricing increases to $399. Your 7-day free trial starts the moment you subscribe below.';
+  }
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('modal-name').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ── FORM SUBMIT HANDLERS ── */
+function showSuccess(inputEl, btnEl, btnText) {
+  inputEl.classList.add('success');
+  inputEl.style.animation = 'pulse-green 0.6s ease';
+  btnEl.textContent = btnText;
+  btnEl.style.background = '#2a2a28';
+  setTimeout(() => { inputEl.style.animation = ''; }, 700);
+}
+
+function submitModal() {
+  const name = document.getElementById('modal-name').value.trim();
+  const email = document.getElementById('modal-email').value.trim();
+  if (!name) {
+    document.getElementById('modal-name').style.borderColor = 'rgba(220,80,80,0.5)';
+    document.getElementById('modal-name').focus();
+    setTimeout(() => document.getElementById('modal-name').style.borderColor = '', 1800);
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    document.getElementById('modal-email').style.borderColor = 'rgba(220,80,80,0.5)';
+    document.getElementById('modal-email').focus();
+    setTimeout(() => document.getElementById('modal-email').style.borderColor = '', 1800);
+    return;
+  }
+  const btn = document.querySelector('.modal-submit');
+  btn.textContent = "You're in! Check your inbox. ✓";
+  btn.style.background = '#2a7a2a';
+  setTimeout(closeModal, 2200);
+}
+
+function submitLM() {
+  const input = document.getElementById('lmEmail');
+  const btn = document.querySelector('.lm-submit');
+  if (!input.value.trim() || !input.value.includes('@')) {
+    input.style.borderColor = 'rgba(220,80,80,0.5)';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 1800);
+    return;
+  }
+  showSuccess(input, btn, "Check your inbox! ✓");
+  input.value = '';
+}
+
+function submitNL() {
+  const input = document.getElementById('nlEmail');
+  const btn = document.querySelector('.nl-submit');
+  if (!input.value.trim() || !input.value.includes('@')) {
+    input.style.borderColor = 'rgba(220,80,80,0.5)';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 1800);
+    return;
+  }
+  showSuccess(input, btn, "Done! Check inbox ✓");
+  btn.style.color = '#fff';
+  input.value = '';
+}
+
+/* ── KEYBOARD: urgency bar CTA ── */
+document.querySelector('.ub-cta').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal('annual'); }
+});
+</script>
+</body>
+</html>
